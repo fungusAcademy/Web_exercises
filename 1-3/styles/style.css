@@ -1,0 +1,321 @@
+@import url('reset.css'); 
+
+body
+{
+    background-color: olive;
+    color: white;
+    font-family: 'Yeon Sung', cursive;
+}
+
+div.column
+{
+    display: flex;
+}
+
+div.column div
+{
+    display: flex;
+    margin: 10px;
+}
+
+div.left-column
+{
+    right: 75%;
+    width: 25%;
+    height: 100%;
+    
+}
+
+div.center-column ul
+{
+    text-align: left;
+	list-style-type: disc;
+}
+
+div.center-column
+{
+    left: 25%;
+    right: 25%;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+div.center-column, .super-force
+{
+    text-align: left;
+    flex-direction: column;
+    font-size: 15px;
+	quotes: "||||||||||";
+
+}
+
+div.svg
+{
+    width: 100%;
+    height: 100%;
+    align-items: stretch;
+}
+
+div.center-column div.author-story
+{
+    font-family: 'Marck+Script';
+}
+
+div.right-column
+{
+    left: 0px;
+    width: 25%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+div.banner
+{
+    font-family: 'Playfair Display', serif;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center
+}
+
+div.banner img
+{
+    width: 150px;
+    height: 120px;
+}
+
+/*menu*/
+  /*top menu*/
+.navigation-menu * 
+{
+    margin: 0;
+    padding: 0;
+}
+
+.navigation-menu ul,
+.navigation-menu ol 
+{
+    list-style: none;
+    background-color: green;
+}
+
+.navigation-menu > ul 
+{
+    display: flex;
+    justify-content: center;
+}
+
+.navigation-menu > ul li a 
+{
+    display: block;
+    padding: 15px 30px 15px 40px;
+    font-size: 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    transition: all 0.7s ease;
+}
+
+.navigation-menu > ul li
+{
+    position: relative;
+    border-right: 1px solid #603434;
+    
+}
+
+.navigation-menu >ul li:first-child 
+{
+    border-left: 1px solid #b2b3b5;
+}
+
+.navigation-menu > ul li:last-child 
+{
+    border-right: 1px solid #b2b3b5;
+}
+
+.navigation-menu li a:hover
+{
+    background: black;
+    transition: all 0.7s ease;
+}
+/*end top menu*/
+
+
+/*for sub menus*/
+.navigation-menu li ul
+{
+    position: absolute;
+    min-width: 150px;
+    display: none;
+}
+.navigation-menu li> ul li
+{
+    border-left: 1px solid #b2b3b5;
+    border-right: 1px solid #b2b3b5;
+}
+
+.navigation-menu li> ul li a
+{
+    padding: 10px;
+    text-transform: none;
+    /* background: olive; */
+}
+.navigation-menu li>ul li ul
+{
+    position: absolute;
+    right: -150px;
+    top: 0;
+}
+.navigation-menu li:hover > ul
+{
+    display: block;
+}
+/*end sub menus*/  
+/* end menu */
+
+@media print
+{
+    div.column
+	{
+        visibility: hidden;
+    }
+    header
+	{
+        visibility: hidden;
+    }
+    
+    div.center-column p
+	{
+        visibility: visible;
+    }
+}
+
+div.SquareCalc {
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	font-family: 'Playfair Display';
+}
+
+div.SquareCalc p._Title {
+	font-size: 27px;
+	margin-bottom: 5px;
+}
+
+div.SquareCalc form {
+	position: relative;
+}
+
+div.SquareCalc form, input[type="text"] {
+	width: 98%;
+	margin-left: 1%
+}
+
+div.SquareCalc input {
+	height: 25px;
+	font-size: 23px;
+}
+
+div.SquareCalc form input[type="button"] {
+	position: absolute;
+	right: 0;
+	margin-top: 5px;
+	width: auto;
+	height: auto;
+	fnt-size: 20px;
+}
+
+div.SquareCalc p.FigureSides {
+	padding-top: 5px;
+	padding-left: 3px;
+	padding-bottom: 2px;
+	text-align: left;
+}
+
+div.center-column hr {
+	width: 75%;
+}
+
+div.DescriptionFigure {
+	flex-direction: column;
+}
+
+div.DescriptionFigure p {
+	font-family: 'Times New Roman';
+	font-size: 18px;
+	white-space: pre-wrap;
+	margin-top: 0;
+	text-align: left;
+}
+
+/*3.1*/
+
+/*3.2*/
+
+div.Series, div.Matrix, div.FillSnakeDiv {
+	position: relative;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+#desc {
+	text-align: left;
+	margin-top: 3px;
+	margin-left: 5px;
+}
+
+div.Series img {
+	padding: 10px;
+	width: 60%;
+}
+
+#Result {
+	font-size: 50px;
+}
+
+#independentX, #MinNumber, #MaxNumber, #MinNum, #MaxNum, #Size {
+	width: 95%;
+	margin-left: 1%;
+	height: 25px;
+	font-size: 23px;
+}
+
+#MinNumber, #MaxNumber, #MinNum, #MaxNum, #Size {
+	margin-top: 3px;
+}
+
+#Enter, #Enter2 {
+	position: relative;
+	margin-top: 5px;
+	min-width: 50px;
+	width: 30%;
+	font-size: 16px;
+	height: 25px;
+	left: 60%;
+}
+
+/*3.2 3.3*/
+
+table.SortedTable {
+	align-self: center;
+	width: 98%;
+	height: 100%;
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-top: 5px;
+	font-size: 20px;
+}
+
+table.SortedTable tr td {
+	margin: auto;
+	padding: 5px;
+	border-bottom: 1px solid white;
+	text-align: center;
+}

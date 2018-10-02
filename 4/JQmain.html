@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+	<script src="JQscript.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function()
+        {
+            genPage();
+        })
+    </script>
+    <script>
+        $(document).ready(function()
+        {
+            $("li").click(function(e)
+            {
+                e.preventDefault;
+                $(this).children("ul:first").slideToggle("slow");
+                return false;
+            })
+        })
+    </script>
+</head>
+    
+<body>
+    <input type="button" value="get Info" onClick="showInfo()">
+</body>
+</html>

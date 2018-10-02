@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles\style.css">
+		<script>
+			window.MathJax =
+			{
+				MathML:
+				{
+					extensions: ["mml3.js", "content-mathml.js"]
+				}
+			};
+		</script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=MML_HTMLorMML"></script>
+
+</head>
+
+<body>
+   
+    <header>
+        <nav class="navigation-menu">
+            <ul>
+                <li><a href="main.html">Main</a></li>
+                <li><a href="aboutme.html">About</a></li>
+                <li><a href="story.html">Story</a></li>
+                <li><a href="#">Tasks</a>
+                    <ul>
+                        <li><a href="#">First Task</a>
+                            <ul>
+                                <li><a href="#">Table Format</a>
+                                    <ul>
+                                        <li><a href="First Task/about.html">About Me</a></li>
+                                        <li><a href="First Task/poem.html">Poety</a></li>
+                                        <li><a href="First Task/main.html">Main</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Second Task</a>
+                            <ul>
+                                <li><a href="MathML.html">MathML</a></li>
+                                <li><a href="figures.html">Draw SVG</a></li>
+                            </ul>
+                        </li>
+						<li><a href="#">Third Task</a>
+							<ul>
+								<li><a href="Square.html">Calc Square</a></li>
+								<li><a href="Series.html">Sum series</a></li>
+								<li><a href="MatrixSolve.html">Matrix Sort</a></li>
+								<li><a href="MatrixSnake.html">Matrix Snake filling</a></li>	
+							</ul>
+						</li>
+                    </ul>
+                </li>
+            </ul>
+            <hr>
+        </nav>
+    </header>
+    
+    <div class="column">
+        <div class="left-column">
+            <img src="Pics\img.jpg" width="100%" height="100%">
+        </div>
+        <div class="center-column">
+            <p>Корни квадратного уравнения:</p>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <mi>x</mi>
+				<mo>=</mo>
+				<mfrac>
+					<mrow><mo>-</mo><mi>b</mi><mo>&#xB1;</mo>
+						<msqrt>
+							<msup>
+								<mi>b</mi><mn>2</mn>
+							</msup>
+							<mo>-</mo>
+							<mn>4</mn>
+							<mi>a</mi>
+							<mi>c</mi>
+						</msqrt>
+					</mrow>
+					<mrow>
+						<mn>2</mn>
+						<mi>a</mi>
+					</mrow>
+				</mfrac>
+			</math>
+            <br>
+            <p>Первый  замечательный предел:</p>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <munder>
+					<mi>lim</mi>
+					<mrow>
+						<mi>x</mi>
+						<mo>&#x2192;</mo>
+						<mn>0</mn>
+					</mrow>
+				</munder>
+				<mfrac>
+					<mrow>
+						<mi>sin</mi>
+						<mfenced>
+							<mi>x</mi>
+						</mfenced>
+					</mrow>
+					<mi>x</mi>
+				</mfrac>
+				<mo>=</mo>
+				<mn>1</mn>
+			</math>
+			<br>
+			<p>Матрица</p>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<mrow>
+				<mi>A</mi>
+				<mo>=</mo>
+				<mfenced open = "[" close="]">
+				    <mtable>
+					    <mtr>
+							<mtd><mi>x</mi></mtd>
+							<mtd><mi>y</mi></mtd>
+					    </mtr>
+						
+					    <mtr>
+							<mtd><mi>z</mi></mtd>
+							<mtd><mi>w</mi></mtd>
+					    </mtr>
+				    </mtable>
+				</mfenced>
+				</mrow>
+			</math>
+
+        </div>
+        <div class="right-column">
+            <div class="banner">
+                <a href="https://is.gd/BiKL5G"><img src="Pics\banner-pic3.jpg" ></a>
+                <p>Начни свой пейнтбольный путь, <br> дешево и сердито!</p>
+            </div>
+            <div class="banner">
+                <a href="https://is.gd/GnMDZA"><img src="Pics\banner-pic1.jpg" ></a>
+                <p>Самоучитель "Pascal за 24 часа"</p>
+            </div>
+            <div class="banner">
+                <a href="https://is.gd/lMMGTP"><img src="Pics\banner-pic2.jpg" ></a>
+                <p>Как подготовиться к сессии за неделю?</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
