@@ -43,7 +43,7 @@ div.center-column
     align-items: center;
 }
 
-div.center-column, .super-force
+div.center-column, .bio
 {
     text-align: left;
     flex-direction: column;
@@ -59,7 +59,7 @@ div.svg
     align-items: stretch;
 }
 
-div.center-column div.author-story
+div.center-column div.author
 {
     font-family: 'Marck+Script';
 }

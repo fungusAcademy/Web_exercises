@@ -1,0 +1,11 @@
+body
+{
+    margin: 0px;
+    padding 0px;
+}
+
+#canvas
+{
+    border: 2px solid black;
+    /* Сделать красивую рамку */
+}
