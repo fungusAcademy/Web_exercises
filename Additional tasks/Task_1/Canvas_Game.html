@@ -5,14 +5,19 @@
     <link rel="stylesheet" href="style.css"> 
     <script src="script.js"></script>
 </head>
-<body onload="Init();" onresize="Init();">
+<body onload="Init();" onresize="Init();" onkeydown="HandleKeys(event);">
 	<canvas id="canvas" onclick="MakeShot(event);" onmousemove="SetGunPos(event);">
 	</canvas>
 	<form>
-		<p>Current score:</p>
-		<input type="Text" id="Score" placeholder="0" readonly><br>
-		<p>Level:</p>
-		<input type="Text" id="Level" placeholder="1" readonly><br>
+        <p><b>Best result:</b></p>
+		<input type="Text" id="best" placeholder="0" readonly>
+        <br>
+		<p><b>Current score:</b></p>
+		<input type="Text" id="Score" placeholder="0" readonly>
+        <br>
+		<p><b>Level:</b></p>
+		<input type="Text" id="Level" placeholder="1" readonly>
+        <br>
 		<input type = "button" value = "Start" onclick="SetTimers()" readonly>
 		<input type = "button" value = "Stop" onclick="ResetTimers()" readonly>
 	</form>
