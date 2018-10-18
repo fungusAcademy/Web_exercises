@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple game</title>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="Init();">
+    <canvas id="canvas" onclick="CreateItem(event);"></canvas>
+    <form >
+        <p><b>Max item size: </b></p>
+        <input type="number" id="size" onchange="ChangeMaxSize()" placeholder="30">
+    </form>
+</body>
+</html>
