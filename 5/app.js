@@ -9,11 +9,12 @@ const COLORS = Object.freeze(
 
 const DIRECTION = Object.freeze(
 {
-    UP:     "UP",
-    DOWN:   "DOWN",
-    LEFT:   "LEFT",
-    RIGHT:  "RIGHT",
-    RANDOM: "RANDOM",
+    UP:       "UP",
+    DOWN:     "DOWN",
+    LEFT:     "LEFT",
+    RIGHT:    "RIGHT",
+    DIAGONAL: "DIAGONAL",
+    RANDOM:   "RANDOM",
 });
 
 const MINSIZE = 15;
@@ -21,7 +22,7 @@ const MINSIZE = 15;
 var canvas, ctx;
 var items = [];
 var timer;
-var maxSize = 30;
+var maxSize = 30, commonDir = DIRECTION.RANDOM, commonSpeed = 5;
 
 /* TBall class*/
 class TBall
@@ -33,7 +34,12 @@ class TBall
         this.posX  = pX;
         this.posY  = pY;
         this.dir   = dir;
-        this.speed = 5;
+        this.speed = commonSpeed;
+        
+        //test
+        this.dirX = Math.random() < 0.65 ? -1 : 1;
+        this.dirY = Math.random() < 0.25 ? -1 : 1;
+        this.correction = Math.random() * 1.5;
     }
     
     Draw()
@@ -50,10 +56,10 @@ class TBall
         switch(this.dir)
         {
             case DIRECTION.UP:
-                this.posY += this.speed;
+                this.posY -= this.speed;
                 break;
             case DIRECTION.DOWN:
-                this.posY -= this.speed;
+                this.posY += this.speed;
                 break;
             case DIRECTION.LEFT:
                 this.posX -= this.speed;
@@ -61,12 +67,15 @@ class TBall
             case DIRECTION.RIGHT:
                 this.posX += this.speed;
                 break;
+            case DIRECTION.DIAGONAL:
+                this.posX += this.speed * this.dirX;
+                this.posY += this.speed * this.dirY;
+                break;
             default:
-                //should be random direction
-                this.posX += this.speed;
-                this.posY += this.speed;
                 break;
         }
+        
+        this.size += 0.25;
     }
 }
 
@@ -87,11 +96,6 @@ function Init()
     }
 }
 
-function SetDefault()
-{
-    
-}
-
 /* Draw functions*/
 function DrawBackground()
 {
@@ -104,7 +108,10 @@ function DrawBackground()
 /* On mouse click */
 function CreateItem(evt)
 {
-    let item = new TBall(GetMousePos(evt).x, GetMousePos(evt).y, GetRandomDir());
+    if (timer == -1) return;
+    
+    let dir = (commonDir == "RANDOM") ? GetRandomDir() : commonDir;    
+    let item = new TBall(GetMousePos(evt).x, GetMousePos(evt).y, dir);
     
     item.Draw();
     item.Move();
@@ -116,13 +123,12 @@ function MoveItems()
 {
     DrawBackground();
     
-    let i = 0;
-    
-    while (i < items.length)
+    for (let i = 0; i < items.length; i++)
     {
+        if (items[i].size >= maxSize) items.splice(i, 1);
+        
         items[i].Draw();
         items[i].Move();
-        i++;
     }
 }
 
@@ -137,6 +143,8 @@ function GetRandomColor()
 function GetRandomDir() 
 {
     let keys = Object.keys(DIRECTION);
+    
+    keys.length -= 1;
 
     return DIRECTION[keys[Math.floor(keys.length * Math.random())]];
 }
@@ -164,8 +172,69 @@ function SetTimers()
     timer = setInterval(MoveItems, 30);
 }
 
+function ResetTimers()
+{
+    clearInterval(timer);
+    timer = -1;
+}
+
 /* Input handlers */
 function ChangeMaxSize()
 {
-    maxSize = Number(document.getElementById("size").nodeValue);
+    maxSize = Number(document.getElementById("size").value);
+}
+
+function ChangeSpeed()
+{
+    commonSpeed = Number(document.getElementById("speed").value);
+}
+
+/* Button handlers */
+function HandleKeys(evt)
+{
+    let key = evt.keyCode;
+    
+    switch(key)
+    {
+        case 32:
+            SetPause();
+            break;
+        case 49:
+            ChangeDirection(DIRECTION.RANDOM);
+            break;
+        case 50:
+            ChangeDirection(DIRECTION.UP);
+            break;
+        case 51:
+            ChangeDirection(DIRECTION.DOWN);
+            break;
+        case 52:
+            ChangeDirection(DIRECTION.LEFT);
+            break;
+        case 53:
+            ChangeDirection(DIRECTION.RIGHT);
+            break;
+        case 54:
+            ChangeDirection(DIRECTION.DIAGONAL);
+            break;
+        default:
+            break;
+    }
+}
+
+function ChangeDirection(dir)
+{
+    commonDir = dir;
+    
+    for (let i = 0; i < items.length; i++)
+    {
+        if (dir == DIRECTION.RANDOM) items[i].dir = GetRandomDir();
+        else                         items[i].dir = dir;
+    }
+}
+
+function SetPause()
+{
+    if (timer == -1) SetTimers()
+    else             ResetTimers();
 }
