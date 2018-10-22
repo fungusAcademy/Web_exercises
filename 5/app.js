@@ -22,64 +22,9 @@ const MINSIZE = 15;
 var canvas, ctx;
 var items = [];
 var timer;
-var maxSize = 30, commonDir = DIRECTION.RANDOM, commonSpeed = 5;
+var maxSize = 30, commonDir = DIRECTION.RANDOM, commonSpeed = 5, spawnNumber = 10;
 
-/* TBall class*/
-class TBall
-{
-    constructor(pX, pY, dir)
-    {
-        this.size  = GetRandomSize();
-        this.color = GetRandomColor();
-        this.posX  = pX;
-        this.posY  = pY;
-        this.dir   = dir;
-        this.speed = commonSpeed;
-        
-        //test
-        this.dirX = Math.random() < 0.65 ? -1 : 1;
-        this.dirY = Math.random() < 0.25 ? -1 : 1;
-        this.correction = Math.random() * 1.5;
-    }
-    
-    Draw()
-    {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.posX, this.posY, this.size, 0, 2 * Math.PI);
-        ctx.closePath();
-        ctx.fill();
-    }
-    
-    Move()
-    {
-        switch(this.dir)
-        {
-            case DIRECTION.UP:
-                this.posY -= this.speed;
-                break;
-            case DIRECTION.DOWN:
-                this.posY += this.speed;
-                break;
-            case DIRECTION.LEFT:
-                this.posX -= this.speed;
-                break;
-            case DIRECTION.RIGHT:
-                this.posX += this.speed;
-                break;
-            case DIRECTION.DIAGONAL:
-                this.posX += this.speed * this.dirX;
-                this.posY += this.speed * this.dirY;
-                break;
-            default:
-                break;
-        }
-        
-        this.size += 0.25;
-    }
-}
-
-/* Actions when page is loaded*/
+/* Actions when page is loaded or resized*/
 function Init()
 {
     canvas = document.getElementById("canvas");
@@ -110,12 +55,15 @@ function CreateItem(evt)
 {
     if (timer == -1) return;
     
-    let dir = (commonDir == "RANDOM") ? GetRandomDir() : commonDir;    
-    let item = new TBall(GetMousePos(evt).x, GetMousePos(evt).y, dir);
+    let dir  = (commonDir == "RANDOM") ? GetRandomDir() : commonDir;    
+    let item = new TBall(GetMousePos(evt).x, GetMousePos(evt).y, dir)
     
-    item.Draw();
-    item.Move();
-    items.push(item);
+    if (!IsClashed(item))
+    {
+        item.Draw();
+        item.Move();
+        items.push(item);
+    }
 }
 
 /* Animation */
@@ -126,6 +74,8 @@ function MoveItems()
     for (let i = 0; i < items.length; i++)
     {
         if (items[i].size >= maxSize) items.splice(i, 1);
+        
+        if (IsClashed(items[i]))      SetOppositeDirection(items[i]);
         
         items[i].Draw();
         items[i].Move();
@@ -144,19 +94,44 @@ function GetRandomDir()
 {
     let keys = Object.keys(DIRECTION);
     
-    keys.length -= 1;
+    keys.length -= 1; // del random
 
     return DIRECTION[keys[Math.floor(keys.length * Math.random())]];
 }
 
 function GetRandomSize() 
 {
-    if (maxSize <= MINSIZE) return 15;
-    
     return Math.random() * (maxSize - MINSIZE) + MINSIZE;
 }
 
 /* Utility functions */
+function SetOppositeDirection(item)
+{
+    item.speed += 1; //bug fix
+    
+    switch(item.dir)
+    {
+        case DIRECTION.UP:
+            item.dir = DIRECTION.DOWN;
+            break;
+        case DIRECTION.DOWN:
+            item.dir = DIRECTION.UP;
+            break;
+        case DIRECTION.LEFT:
+            item.dir = DIRECTION.RIGHT;
+            break;
+        case DIRECTION.RIGHT:
+            item.dir = DIRECTION.LEFT;
+            break;
+        case DIRECTION.DIAGONAL:
+            item.dirX *= -1;
+            item.dirY *= -1;
+            break;
+        default:
+            break;
+    }
+}
+
 function GetMousePos(evt) 
 {
     return( 
@@ -164,6 +139,17 @@ function GetMousePos(evt)
         x: evt.clientX - canvas.offsetLeft,
         y: evt.clientY - canvas.offsetTop
     });
+}
+
+//Collision check
+function IsClashed(item)
+{
+    let x    = item.posX;
+    let y    = item.posY;
+    let size = item.size;
+    
+    if (x+size > canvas.width || x-size < 0 || y-size < 0 || y+size > canvas.height) return true;
+    else                                                                             return false;
 }
 
 /* Set animation */
@@ -182,11 +168,24 @@ function ResetTimers()
 function ChangeMaxSize()
 {
     maxSize = Number(document.getElementById("size").value);
+    
+    if (maxSize > 50) maxSize = 100;
+    
+    if (maxSize < 30) maxSize = 30;
 }
 
 function ChangeSpeed()
 {
     commonSpeed = Number(document.getElementById("speed").value);
+    
+    if (commonSpeed > 10) commonSpeed = 10;
+}
+
+function ChangeSpawnNumber()
+{
+    spawnNumber = Number(document.getElementById('spawn').value);
+    
+    //if
 }
 
 /* Button handlers */
@@ -237,4 +236,23 @@ function SetPause()
 {
     if (timer == -1) SetTimers()
     else             ResetTimers();
+}
+
+function SpawnItems()
+{
+    let dir  = (commonDir == "RANDOM") ? GetRandomDir() : commonDir;    
+    
+    for (let i = 0; i < spawnNumber; i++)
+    {
+        let x    = Math.random() * canvas.width-maxSize + maxSize;
+        let y    = Math.random() * canvas.height-maxSize + maxSize;
+        let item = new TBall(x, y, dir)
+
+        if (!IsClashed(item))
+        {
+            item.Draw();
+            item.Move();
+            items.push(item);
+        }
+    }
 }

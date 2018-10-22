@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Simple game</title>
     <script src="app.js"></script>
+    <script src="class.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body onload="Init();" onresize="Init();" onkeydown="HandleKeys(event);">
@@ -15,11 +16,15 @@
         <input type="button" value="Left (4)" onclick="ChangeDirection('LEFT');">
         <input type="button" value="Right (5)" onclick="ChangeDirection('RIGHT');">
         <input type="button" value="Diagonal (6)" onclick="ChangeDirection('DIAGONAL');">
+        <input type="button" value="Spawn" onclick="SpawnItems();">
         
         <p><b>Max item size: </b></p>
         <input type="number" id="size" onchange="ChangeMaxSize();" placeholder="30">
         <p><b>Current speed: </b></p>
         <input type="number" id="speed" onchange="ChangeSpeed();" placeholder="5">
+        <p><b>Spawn number: </b></p>
+        <input type="number" id="spawn" onchange="ChangeSpawnNumber();" placeholder="10">
+        <p><i> Spacebar - pause</i></p>
     </form>
 </body>
 </html>
